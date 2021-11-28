@@ -36,7 +36,8 @@ const Signup = () => {
     } 
     else {
       console.log("something went wrong");
-      console.log(data);
+      // console.log(data);
+      data.message.forEach(msg => console.log(msg));
     }
 
 
