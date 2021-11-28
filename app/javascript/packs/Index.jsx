@@ -1,10 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { BrowserRouter } from 'react-router-dom'
 import App from '../components/App'
 
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
-    <App name="Quiz_Codemancers" />,
-    document.body.appendChild(document.createElement('div')),
-  )
+    <BrowserRouter>
+      <App name="Quiz_Codemancers" />
+    </BrowserRouter>,
+    document.body.appendChild(document.createElement("div"))
+  );
 })
