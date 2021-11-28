@@ -5,8 +5,11 @@ class User < ApplicationRecord
     presence: true,
     format: {
       with: EMAIL_REGEX,
-      message: "invalid"
+      message: "is invalid"
     }
+  validates :password,
+    presence: true,
+    length: { minimum: 8 }
 
   has_secure_password
 end
