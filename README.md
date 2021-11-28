@@ -1,24 +1,43 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Quiz App using Ruby on Rails and React Frontend.
 
-Things you may want to cover:
+## The following user stories will be implemented. 
 
-* Ruby version
+### User story 1
 
-* System dependencies
+As a new user, I should be able to register using my email and password.
 
-* Configuration
+### User story 2
 
-* Database creation
+As a registered user, I should be able to log in and log out.
 
-* Database initialization
+### User story 3
 
-* How to run the test suite
+As a logged in user, I should be able to create a quiz containing several multiple choice questions.
 
-* Services (job queues, cache servers, search engines, etc.)
+#### Expected steps:
 
-* Deployment instructions
+1. Provide an html form for quiz.
+2. Author can name the quiz, and add questions one by one.
+3. For each question, author should add 4 options and assign a score for it to be used during evaluation.
+4. Provide a sharable URL when quiz is created.
 
-* ...
+### User story 4
+
+As an anonymous user, I should be able to view and attend the quiz via the shared URL.
+
+### User story 5
+
+As a user taking the shared quiz, I should be able to submit the quiz and see my score instantly.
+
+### Deployment
+
+When all of the above user stories are completed, deploy the app to Heroku or any cloud instance. Please provide the URL to the hosted application for us to review, when submitting the task.
+
+## Additional Goals:
+
+- Using React for UI
+- App is dockerised
+- Good test coverage
+- Github actions configured for CI/CD
