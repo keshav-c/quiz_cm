@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import FormInput from "./FormInput";
 
 const AuthForm = (props) => {
   const [enteredEmail, setEnteredEmail] = useState("");
@@ -43,26 +44,16 @@ const AuthForm = (props) => {
 
   return (
     <form onSubmit={submitHandler}>
-      <div>
-        <label htmlFor="email">Your Email</label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          onChange={emailChangeHandler}
-          value={enteredEmail}
-        />
-      </div>
-      <div>
-        <label htmlFor="password">Password</label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          onChange={passChangeHandler}
-          value={enteredPass}
-        />
-      </div>
+      <FormInput
+        field="email"
+        enteredValue={enteredEmail}
+        changeHandler={emailChangeHandler}
+      />
+      <FormInput
+        field="password"
+        enteredValue={enteredPass}
+        changeHandler={passChangeHandler}
+      />
       <div>
         <button type="submit">Register</button>
       </div>
