@@ -8,7 +8,8 @@ class UsersController < ApplicationController
     rescue ActiveRecord::ActiveRecordError
       render json: { message: ['Something went wrong'] }, status: 500
     else
-      render json: { message: 'Great success' }, status: 200
+      payload = login(user)
+      render json: payload, status: 200
     end
   end
 
