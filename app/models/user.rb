@@ -11,5 +11,7 @@ class User < ApplicationRecord
     presence: true,
     length: { minimum: 8 }
 
+  has_one :session
+
   has_secure_password
 end
