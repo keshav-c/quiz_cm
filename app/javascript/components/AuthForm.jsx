@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { Redirect } from "react-router-dom";
 import FormInput from "./FormInput";
 
+// url, prompt, loggedIn, onSuccess
 const AuthForm = (props) => {
   const [enteredEmail, setEnteredEmail] = useState("");
   const [enteredPass, setEnteredPass] = useState("");
@@ -33,17 +35,18 @@ const AuthForm = (props) => {
     if (response.ok) {
       console.log("it worked");
       console.log(data);
+      setEnteredEmail("");
+      setEnteredPass("");
+      props.onSuccess(data.token, true);
     } else {
       console.log("something went wrong");
       data.message.forEach((msg) => console.log(msg));
     }
-
-    setEnteredEmail("");
-    setEnteredPass("");
   };
 
   return (
     <form onSubmit={submitHandler}>
+      {props.loggedIn && <Redirect to="/" />}
       <FormInput
         field="email"
         enteredValue={enteredEmail}

@@ -11,7 +11,7 @@ class User < ApplicationRecord
     presence: true,
     length: { minimum: 8 }
 
-  has_one :session
+  has_one :session, dependent: :destroy
 
   has_secure_password
 end

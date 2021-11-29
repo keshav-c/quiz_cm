@@ -1,37 +1,31 @@
 import React from "react";
+import { Redirect } from "react-router-dom";
 
-const Logout = (prompt) => {
-  const submitHandler = (event) => {
-    event.preventDefault();
-
+// authToken, onLogoutSuccess
+const Logout = (props) => {
+  const clickHandler = async (event) => {
     const csrf_token = document.querySelector('meta[name="csrf-token"]').content;
-    const body = JSON.stringify({ auth_token: prompt.auth_token });
-    let response = await fetch(props.url, {
+    let response = await fetch("/logout", {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
         "X-CSRF-Token": csrf_token,
       },
-      body: body,
+      body: JSON.stringify({ auth_token: props.authToken }),
     });
     console.log(response);
     const data = await response.json();
     if (response.ok) {
-      console.log("it worked");
+      console.log("Logout success!");
       console.log(data);
+      props.onLogoutSuccess("", false);      
     } else {
-      console.log("something went wrong");
+      console.log("Logout failure!");
       data.message.forEach((msg) => console.log(msg));
     }
   };
 
-  return (
-    <form onSubmit={submitHandler}>
-      <div>
-        <button type="submit">{props.prompt}</button>
-      </div>
-    </form>
-  );
+  return <button onClick={clickHandler}>Log Out</button>;
 };
 
 export default Logout;

@@ -10,6 +10,13 @@ class SessionsController < ApplicationController
   end
 
   def destroy
+    session = Session.find_by(auth_token: params[:auth_token])
+    if session.nil?
+      render json: { message: ['Invalid session'] }, status: 400
+    else
+      session.destroy
+      render json: { message: ['Logout success'] }, status: 200
+    end
   end
 
   private
