@@ -55,7 +55,7 @@ const AuthForm = (props) => {
         changeHandler={passChangeHandler}
       />
       <div>
-        <button type="submit">Register</button>
+        <button type="submit">{props.prompt}</button>
       </div>
     </form>
   );
