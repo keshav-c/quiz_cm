@@ -3,10 +3,10 @@ import ChoicesForm from "./ChoicesForm";
 
 // expected props: qIndex, question: {qText, A, B..D, answer, score}, handler
 const QuestionForm = (props) => {
-  const qName = `q-${props.qIndex}`;
+  const qName = `qtext-${props.qIndex}`;
   const { A, B, C, D } = props.question;
   const choiceText = { A, B, C, D };
-  const sName = `s-${props.qIndex}`;
+  const sName = `score-${props.qIndex}`;
 
   return (
     <fieldset>
@@ -33,7 +33,7 @@ const QuestionForm = (props) => {
       <input
         type="number"
         id={sName}
-        htmlFor={sName}
+        name={sName}
         onChange={props.handler}
         value={props.question.score}
       />

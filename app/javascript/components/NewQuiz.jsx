@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import QuestionsForm from "./QuestionsForm";
 
-const NewQuiz = () => {
+const NewQuiz = (props) => {
   const [quizData, setQuizData] = useState({
     title: "",
     questions: []
@@ -9,21 +9,35 @@ const NewQuiz = () => {
 
   const formChangeHandler = (event) => {
     const name = event.target.name;
-    if (name === "Add") {
+
+    if (name === "add") {
       setQuizData((data) => {
         let {title, questions} = data;
         questions = [
           ...questions,
-          {
-            qText: "",
-            A: "",
-            B: "",
-            C: "",
-            D: "",
-            answer: "A",
-          },
+          {qtext: "", A: "", B: "", C: "", D: "", answer: "A", score: 1},
         ];
         return {title, questions};
+      });
+    } else if (name === "title") {
+      setQuizData((data) => {
+        let {title, questions} = data;
+        title = event.target.value;
+        return {title, questions};
+      });
+    } else if (name.startsWith("question")) {
+      let i = name.split('-')[1];
+      setQuizData((data) => {
+        let {title, questions} = data;
+        questions[i].qText = event.target.value;
+        return {title, questions};
+      });
+    } else {
+      let [prop, i] = name.split("-");
+      setQuizData((data) => {
+        let { title, questions } = data;
+        questions[i][prop] = event.target.value;
+        return { title, questions };
       });
     }
   };
@@ -31,7 +45,10 @@ const NewQuiz = () => {
   const submitHandler = async (event) => {
     event.preventDefault();
 
-    console.log("form submitted");
+    // const token = props.authToken;
+    // const {}
+
+    console.log(quizData);
   }
 
   const numQ = quizData.questions.length;
@@ -50,7 +67,7 @@ const NewQuiz = () => {
         <button
           type="button"
           onClick={formChangeHandler}
-          name="Add"
+          name="add"
         >Add Another Question</button>
         
         <button type="submit" onClick={submitHandler} >Submit Quiz</button>

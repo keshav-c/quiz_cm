@@ -6,7 +6,7 @@ const ChoiceForm = (props) => (
     <legend>{`Choice ${props.value}`}</legend>
     <input
       type="radio"
-      name={`choice-${props.qIndex}`}
+      name={`answer-${props.qIndex}`}
       value={props.value}
       checked={props.value === props.answer}
       onChange={props.handler}
