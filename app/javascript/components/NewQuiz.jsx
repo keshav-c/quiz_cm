@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import QuestionsForm from "./QuestionsForm";
 
 const NewQuiz = (props) => {
-  const [quizData, setQuizData] = useState({
+  const [quiz, setQuiz] = useState({
     title: "",
     questions: []
   });
@@ -11,7 +11,7 @@ const NewQuiz = (props) => {
     const name = event.target.name;
 
     if (name === "add") {
-      setQuizData((data) => {
+      setQuiz((data) => {
         let {title, questions} = data;
         questions = [
           ...questions,
@@ -20,21 +20,14 @@ const NewQuiz = (props) => {
         return {title, questions};
       });
     } else if (name === "title") {
-      setQuizData((data) => {
+      setQuiz((data) => {
         let {title, questions} = data;
         title = event.target.value;
         return {title, questions};
       });
-    } else if (name.startsWith("question")) {
-      let i = name.split('-')[1];
-      setQuizData((data) => {
-        let {title, questions} = data;
-        questions[i].qText = event.target.value;
-        return {title, questions};
-      });
     } else {
       let [prop, i] = name.split("-");
-      setQuizData((data) => {
+      setQuiz((data) => {
         let { title, questions } = data;
         questions[i][prop] = event.target.value;
         return { title, questions };
@@ -45,13 +38,11 @@ const NewQuiz = (props) => {
   const submitHandler = async (event) => {
     event.preventDefault();
 
-    // const token = props.authToken;
-    // const {}
+    const token = props.authToken
+    const body = {token, quiz}
 
-    console.log(quizData);
+    console.log(body);
   }
-
-  const numQ = quizData.questions.length;
 
   return (
     <>
@@ -62,7 +53,7 @@ const NewQuiz = (props) => {
           <input type="input" id="title" name="title" onChange={formChangeHandler} />
         </div>
         
-        <QuestionsForm questions={quizData.questions} handler={formChangeHandler} />
+        <QuestionsForm questions={quiz.questions} handler={formChangeHandler} />
 
         <button
           type="button"
