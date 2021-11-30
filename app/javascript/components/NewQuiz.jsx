@@ -39,9 +39,24 @@ const NewQuiz = (props) => {
     event.preventDefault();
 
     const token = props.authToken
-    const body = {token, quiz}
-
-    console.log(body);
+    const csrf_token = document.querySelector('meta[name="csrf-token"]').content;
+    let response = await fetch("/quiz", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRF-Token": csrf_token,
+      },
+      body: JSON.stringify({token, quiz})
+    });
+    console.log(response);
+    const data = await response.json();
+    if (response.ok) {
+      console.log("it worked");
+      console.log(data);
+    } else {
+      console.log("something went wrong");
+      data.message.forEach((msg) => console.log(msg));
+    }
   }
 
   return (
