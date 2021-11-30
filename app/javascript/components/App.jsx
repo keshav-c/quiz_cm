@@ -25,7 +25,7 @@ const App = (props) => {
       />
       <Switch>
         <Route exact path="/">
-          <Home />
+          <Home loggedIn={loggedIn} authToken={token} />
         </Route>
         <Route exact path="/signup">
           <Signup loggedIn={loggedIn} onRxUserData={updateUserState} />
