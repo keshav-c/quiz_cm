@@ -12,6 +12,7 @@ class User < ApplicationRecord
     length: { minimum: 8 }
 
   has_one :session, dependent: :destroy
+  has_many :quizzes, dependent: :destroy
 
   has_secure_password
 end
