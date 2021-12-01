@@ -37,17 +37,28 @@ class QuizzesController < ApplicationController
   end
 
   def show
-    questions = Question.includes(:quiz).where(quiz: { slug: params[:id] })
-    questions.map! do |q|
-      {
-        qtext: q.question,
-        A: q.a,
-        B: q.b,
-        C: q.c,
-        D: q.d,
-        answer: q.answer,
-        score: q.score
+    begin
+      quiz = Quiz.find_by(slug: params[:id])
+      questions = quiz.questions.map do |q|
+        {
+          qtext: q.question,
+          A: q.a,
+          B: q.b,
+          C: q.c,
+          D: q.d,
+          answer: q.answer,
+          score: q.score
+        }
+      end
+      payload = {
+        title: quiz.title,
+        questions: questions
       }
+      render json: payload, status: 200
+    rescue ActiveRecord::RecordNotFound
+      render json: { message: ['Quiz does not exist.'] }, status: 400
+    rescue ActiveRecord::ActiveRecordError
+      render json: { message: ['Something went wrong'] }, status: 500
     end
      
   end
