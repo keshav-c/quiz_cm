@@ -46,7 +46,6 @@ class QuizzesController < ApplicationController
           B: q.b,
           C: q.c,
           D: q.d,
-          answer: q.answer,
           score: q.score
         }
       end
