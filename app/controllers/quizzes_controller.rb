@@ -23,10 +23,11 @@ class QuizzesController < ApplicationController
               answer: q[:answer]
             }
           end
+          raise ActiveRecord::Rollback if quiz_questions.empty?
           quiz.questions.create!(quiz_questions)
         end
       rescue ActiveRecord::RecordInvalid
-        render json: { message: quiz.errors.full_messages }, status: 400
+        render json: { message: ['Invalid input given. Quiz not saved.'] }, status: 400
       rescue ActiveRecord::ActiveRecordError
         render json: { message: ['Something went wrong'] }, status: 500
       else
@@ -36,7 +37,18 @@ class QuizzesController < ApplicationController
   end
 
   def show
-    puts "here in show"
-    puts params[:id]
+    questions = Question.includes(:quiz).where(quiz: { slug: params[:id] })
+    questions.map! do |q|
+      {
+        qtext: q.question,
+        A: q.a,
+        B: q.b,
+        C: q.c,
+        D: q.d,
+        answer: q.answer,
+        score: q.score
+      }
+    end
+     
   end
 end
