@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import Quiz from "../components/Quiz";
 
 const QuizPage = () => {
-  const [quizData, setQuizData] = useState({data: "nothing"});
+  const [quizData, setQuizData] = useState(null);
   const params = useParams();
   const slug = params.quizId;
   const url = `/quiz/${slug}`;
@@ -25,7 +26,8 @@ const QuizPage = () => {
   return (
     <>
       <h1>The Quiz Page</h1>
-      <p>{JSON.stringify(quizData)}</p>
+      {!quizData && <p>Loading...</p>}
+      {!!quizData && <Quiz data={quizData} />}
     </>
   );
 };
