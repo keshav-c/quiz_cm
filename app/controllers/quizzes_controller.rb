@@ -10,19 +10,21 @@ class QuizzesController < ApplicationController
       slug = [slug_p1, slug_p2].join
 
       begin
-        quiz = user.quizzes.create!(title: title, slug: slug)
-        quiz_questions = params[:quiz][:questions].map! do |q|
-          q_hash = {
-            question: q[:qtext],
-            a: q[:A],
-            b: q[:B],
-            c: q[:C],
-            d: q[:D],
-            score: q[:score],
-            answer: q[:answer]
-          }
+        user.transaction do
+          quiz = user.quizzes.create!(title: title, slug: slug)
+          quiz_questions = params[:quiz][:questions].map! do |q|
+            q_hash = {
+              question: q[:qtext],
+              a: q[:A],
+              b: q[:B],
+              c: q[:C],
+              d: q[:D],
+              score: q[:score],
+              answer: q[:answer]
+            }
+          end
+          quiz.questions.create!(quiz_questions)
         end
-        quiz.questions.create!(quiz_questions)
       rescue ActiveRecord::RecordInvalid
         render json: { message: quiz.errors.full_messages }, status: 400
       rescue ActiveRecord::ActiveRecordError
