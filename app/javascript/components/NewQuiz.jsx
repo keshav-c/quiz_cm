@@ -1,10 +1,16 @@
 import React, { useState } from "react";
 import QuestionsForm from "./QuestionsForm";
 
+const ShareableLink = (props) => <a href={`/quiz/${props.slug}`}>Link to Created Quiz</a>;
+
 const NewQuiz = (props) => {
   const [quiz, setQuiz] = useState({
     title: "",
     questions: []
+  });
+  const [quizSubmitted, setQuizSubmitted] = useState({
+    status: false,
+    link: ""
   });
 
   const formChangeHandler = (event) => {
@@ -53,6 +59,10 @@ const NewQuiz = (props) => {
     if (response.ok) {
       console.log("it worked");
       console.log(data);
+      setQuizSubmitted({
+        status: true,
+        link: `${data.slug}`
+      });
     } else {
       console.log("something went wrong");
       data.message.forEach((msg) => console.log(msg));
@@ -79,6 +89,7 @@ const NewQuiz = (props) => {
         <button type="submit" onClick={submitHandler} >Submit Quiz</button>
         
       </form>
+      {quizSubmitted.status && <ShareableLink slug={quizSubmitted.link} />}
     </>
   );
 };

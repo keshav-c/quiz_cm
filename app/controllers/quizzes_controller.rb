@@ -36,5 +36,7 @@ class QuizzesController < ApplicationController
   end
 
   def show
+    puts "here in show"
+    puts params[:id]
   end
 end

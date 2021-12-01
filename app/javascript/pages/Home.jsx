@@ -6,7 +6,7 @@ const ShowFormButton = (props) => (
     type="button"
     onClick={props.clickHandler}
   >
-    Add New Quiz
+    {props.prompt}
   </button>
 );
 
@@ -14,13 +14,20 @@ const Home = (props) => {
   const [showForm, setShowForm] = useState(false);
 
   const btnClickHandler = () => {
-    setShowForm(true);
+    setShowForm((oldState) => !oldState);
   };
+  const showFormBtnPrompt = showForm ? "Hide Quiz Form" : "Add New Quiz";
 
   return (
     <>
       <h1>Home page</h1>
-      {props.loggedIn && !showForm && <ShowFormButton clickHandler={btnClickHandler} />}
+      {
+        props.loggedIn && 
+          <ShowFormButton
+            prompt={showFormBtnPrompt}
+            clickHandler={btnClickHandler}
+          />
+      }
       {props.loggedIn && showForm && <NewQuiz authToken={props.authToken} />}
     </>
   );
