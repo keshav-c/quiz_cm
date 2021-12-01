@@ -4,6 +4,7 @@ import AppHeader from "./Header";
 import Home from "../pages/Home";
 import Signup from "../pages/Signup";
 import Signin from "../pages/Signin";
+import QuizPage from "../pages/QuizPage";
 
 let token = "";
 
@@ -32,6 +33,9 @@ const App = (props) => {
         </Route>
         <Route exact path="/signin">
           <Signin loggedIn={loggedIn} onRxUserData={updateUserState} />
+        </Route>
+        <Route exact path="/quiz/:quizId">
+          <QuizPage />
         </Route>
       </Switch>
     </>

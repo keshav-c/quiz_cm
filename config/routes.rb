@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
   post '/quiz', to: 'quizzes#create'
-  get '/quiz/:id', to: 'quizzes#show'
+  post '/quiz/:id', to: 'quizzes#show'
 
   root 'homepage#index'
   get '/*path' => 'homepage#index'
