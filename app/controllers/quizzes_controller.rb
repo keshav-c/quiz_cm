@@ -22,15 +22,13 @@ class QuizzesController < ApplicationController
             answer: q[:answer]
           }
         end
-        quiz.questions.insert_all!(quiz_questions, returning: false)
+        quiz.questions.create!(quiz_questions)
       rescue ActiveRecord::RecordInvalid
         render json: { message: quiz.errors.full_messages }, status: 400
-      rescue ActiveRecord::RecordNotUnique
-        render json: { message: ["Some records weren't unique"] }, status: 400
       rescue ActiveRecord::ActiveRecordError
         render json: { message: ['Something went wrong'] }, status: 500
       else
-        render json: { message: ['Quiz created successfully'] }, status: 200
+        render json: { slug: slug }, status: 200
       end
     end
   end

@@ -10,8 +10,6 @@ class ApplicationController < ActionController::Base
   end
 
   def logged_in(token)
-    # user = User.joins(:session).find_by(auth_token: token)
-    # user = User.includes(:session).find_by(auth_token: token)
     user = User.includes(:session).where(sessions: { auth_token: token }).first!
     if user.nil?
       false
