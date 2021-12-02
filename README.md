@@ -2,7 +2,7 @@
 
 Quiz App using Ruby on Rails and React Frontend.
 
-## The following user stories will be implemented. 
+## The following user stories have been implemented. 
 
 ### User story 1
 
@@ -37,7 +37,8 @@ When all of the above user stories are completed, deploy the app to Heroku or an
 
 ## Additional Goals:
 
-- Using React for UI
-- App is dockerised
-- Good test coverage
-- Github actions configured for CI/CD
+- [x] Using React for UI
+- [ ] UI styled using mui or other framework
+- [ ] App is dockerised
+- [ ] Good test coverage (Rspec)
+- [ ] Github actions configured for CI/CD
