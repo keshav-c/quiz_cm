@@ -8,7 +8,7 @@ import QuizPage from "../pages/QuizPage";
 
 let token = "";
 
-const App = (props) => {
+const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   
   const updateUserState = (newToken, newLoginState) => {
@@ -18,7 +18,6 @@ const App = (props) => {
 
   return (
     <>
-      <h1>The App {props.name}</h1>
       <AppHeader
         loggedIn={loggedIn}
         authToken={token}

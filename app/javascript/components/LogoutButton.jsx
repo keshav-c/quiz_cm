@@ -1,7 +1,6 @@
 import React from "react";
-import { Redirect } from "react-router-dom";
+import { Button } from "@mui/material";
 
-// authToken, onLogoutSuccess
 const Logout = (props) => {
   const clickHandler = async (event) => {
     const csrf_token = document.querySelector('meta[name="csrf-token"]').content;
@@ -25,7 +24,17 @@ const Logout = (props) => {
     }
   };
 
-  return <button onClick={clickHandler}>Log Out</button>;
+  // variant="text" color="danger" 
+  return (
+    <Button
+      component="button"
+      variant="text"
+      color="inherit"
+      onClick={clickHandler}
+    >
+      Log Out
+    </Button>
+  );
 };
 
 export default Logout;

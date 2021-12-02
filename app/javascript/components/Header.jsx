@@ -1,24 +1,40 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Logout from "./LogoutButton";
+import { AppBar, Container, Button, Toolbar, Typography } from "@mui/material";
 
-// authToken, loggedIn, onRxUserData
 const AppHeader = (props) => (
-  <header>
-    <nav>
-      <ul>
-        <li>
-          <Link to="/">Home</Link>
-        </li>
+  <AppBar position="static">
+    <Container maxWidth="xl">
+      <Toolbar>
+        <Typography variant="h6">Create a Quiz</Typography>
+        <Button
+          component={Link}
+          variant="text"
+          color="inherit"
+          to="/"
+        >
+          Home
+        </Button>
         {!props.loggedIn && (
-          <li>
-            <Link to="/signup">Sign Up</Link>
-          </li>
+          <Button
+            component={Link}
+            variant="text"
+            color="inherit"
+            to="/signup"
+          >
+            Sign Up
+          </Button>
         )}
         {!props.loggedIn && (
-          <li>
-            <Link to="/signin">Sign in</Link>
-          </li>
+          <Button
+            component={Link}
+            variant="text"
+            color="inherit"
+            to="/signin"
+          >
+            Sign in
+          </Button>
         )}
         {props.loggedIn && (
           <Logout
@@ -26,9 +42,9 @@ const AppHeader = (props) => (
             onLogoutSuccess={props.onRxUserData}
           />
         )}
-      </ul>
-    </nav>
-  </header>
+      </Toolbar>
+    </Container>
+  </AppBar>
 );
 
 export default AppHeader;

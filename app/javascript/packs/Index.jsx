@@ -6,7 +6,7 @@ import App from '../components/App'
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
     <BrowserRouter>
-      <App name="Quiz_Codemancers" />
+      <App />
     </BrowserRouter>,
     document.body.appendChild(document.createElement("div"))
   );
