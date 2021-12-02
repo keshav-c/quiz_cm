@@ -41,6 +41,7 @@ class QuizzesController < ApplicationController
       quiz = Quiz.find_by(slug: params[:id])
       questions = quiz.questions.map do |q|
         {
+          id: q.id,
           qtext: q.question,
           A: q.a,
           B: q.b,
