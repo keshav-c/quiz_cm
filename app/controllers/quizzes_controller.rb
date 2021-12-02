@@ -62,4 +62,10 @@ class QuizzesController < ApplicationController
     end
      
   end
+
+  def evaluate
+    puts params[:id]
+    puts params[:quiz]
+    render json: { score: "Full marks!" }, status: 200
+  end
 end

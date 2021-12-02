@@ -27,7 +27,7 @@ const QuizPage = () => {
     <>
       <h1>The Quiz Page</h1>
       {!quizData && <p>Loading...</p>}
-      {!!quizData && <Quiz data={quizData} />}
+      {!!quizData && <Quiz data={quizData} slug={slug} />}
     </>
   );
 };

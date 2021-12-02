@@ -17,10 +17,27 @@ const Quiz = (props) => {
     });
   };
   
-  const formSubmitHandler = (event) => {
+  const formSubmitHandler = async (event) => {
     event.preventDefault();
-    
-    console.log(quiz);
+
+    const payload = {quiz, token: props.slug};
+    console.log(payload);
+    const csrf_token = document.querySelector(
+      'meta[name="csrf-token"]'
+    ).content;
+
+    const response = await fetch(`/quiz/${props.slug}/evaluate`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRF-Token": csrf_token,
+      },
+      body: JSON.stringify(payload)
+    });
+    if(response.ok) {
+      const rxData = await response.json()
+      console.log(rxData)
+    }
   };
 
 
