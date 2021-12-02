@@ -64,8 +64,8 @@ class QuizzesController < ApplicationController
   end
 
   def evaluate
-    puts params[:id]
-    puts params[:quiz]
-    render json: { score: "Full marks!" }, status: 200
+    quiz = Quiz.find_by(slug: params[:id])
+    payload = quiz.score(params[:quiz])
+    render json: payload, status: 200
   end
 end
