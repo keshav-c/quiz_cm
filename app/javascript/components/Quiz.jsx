@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import Questions from "./Questions";
+import Score from "./Score";
 
 const Quiz = (props) => {
+  const [score, setScore] = useState(null);
   const title = props.data.title;
   let questions = props.data.questions;
   questions = questions.map((q) => ({...q, answer: ""}));
@@ -21,7 +23,6 @@ const Quiz = (props) => {
     event.preventDefault();
 
     const payload = {quiz, token: props.slug};
-    console.log(payload);
     const csrf_token = document.querySelector(
       'meta[name="csrf-token"]'
     ).content;
@@ -35,8 +36,8 @@ const Quiz = (props) => {
       body: JSON.stringify(payload)
     });
     if(response.ok) {
-      const rxData = await response.json()
-      console.log(rxData)
+      const rxData = await response.json();
+      setScore(rxData);
     }
   };
 
@@ -48,6 +49,7 @@ const Quiz = (props) => {
         <Questions questions={questions} handler={formChangeHandler} />
         <button type="submit" onClick={formSubmitHandler}>Submit Quiz</button>
       </form>
+      {!!score && <Score results={(score)} /> }
     </>
   );
 };
