@@ -11,8 +11,6 @@ const QuestionForm = (props) => {
 
   return (
     <FormControl component="fieldset" margin="dense" fullWidth={true}>
-      <legend>{`Question ${props.qIndex + 1}`}</legend>
-
       <TextField
         id={qName}
         name={qName}
