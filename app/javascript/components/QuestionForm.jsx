@@ -1,5 +1,6 @@
 import React from "react";
 import ChoicesForm from "./ChoicesForm";
+import { FormControl, TextField } from "@mui/material";
 
 // expected props: qIndex, question: {qText, A, B..D, answer, score}, handler
 const QuestionForm = (props) => {
@@ -9,17 +10,19 @@ const QuestionForm = (props) => {
   const sName = `score-${props.qIndex}`;
 
   return (
-    <fieldset>
+    <FormControl component="fieldset" margin="dense" fullWidth={true}>
       <legend>{`Question ${props.qIndex + 1}`}</legend>
 
-      <label htmlFor={qName}>Question</label>
-      <textarea
-        rows="5"
-        cols="60"
-        name={qName}
+      <TextField
         id={qName}
+        name={qName}
+        multiline
+        minRows={5}
+        fullWidth={true}
         onChange={props.handler}
         value={props.question.qText}
+        label="Question"
+        helperText="Enter the Question (Mandatory)"
       />
 
       <ChoicesForm
@@ -29,15 +32,16 @@ const QuestionForm = (props) => {
         handler={props.handler}
       />
 
-      <label htmlFor={sName}>Score</label>
-      <input
+      <TextField
         type="number"
         id={sName}
         name={sName}
         onChange={props.handler}
+        label={sName}
         value={props.question.score}
+        helperText="How many points for this questions? (Mandatory)"
       />
-    </fieldset>
+    </FormControl>
   );
 };
 

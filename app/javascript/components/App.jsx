@@ -19,13 +19,13 @@ const App = () => {
 
   return (
     <Container maxWidth="md">
-      <Paper sx={{ height: '100vh' }}>
+      <Paper sx={{ minHeight: '100vh', padding: '1em' }}>
         <AppHeader
           loggedIn={loggedIn}
           authToken={token}
           onRxUserData={updateUserState}
         />
-        <Card sx={{ margin: '2em', padding: '2em' }}>
+        <Card sx={{ margin: '2em', padding: '1em' }}>
           <Switch>
             <Route exact path="/">
               <Home loggedIn={loggedIn} authToken={token} />
