@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import NewQuiz from "../components/NewQuiz";
+import { Button, Typography } from "@mui/material";
 
 const ShowFormButton = (props) => (
-  <button
+  <Button
+    component="button"
     type="button"
     onClick={props.clickHandler}
   >
     {props.prompt}
-  </button>
+  </Button>
 );
 
 const Home = (props) => {
@@ -16,11 +18,11 @@ const Home = (props) => {
   const btnClickHandler = () => {
     setShowForm((oldState) => !oldState);
   };
-  const showFormBtnPrompt = showForm ? "Hide Quiz Form" : "Add New Quiz";
+  const showFormBtnPrompt = showForm ? "Hide Quiz Form" : "Create New Quiz";
 
   return (
     <>
-      <h1>Home page</h1>
+      <Typography align="center" variant="h2">Home page</Typography>
       {
         props.loggedIn && 
           <ShowFormButton

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import QuestionsForm from "./QuestionsForm";
+import { Button, FormControl, TextField } from "@mui/material";
 
 const ShareableLink = (props) => <a href={`/quiz/${props.slug}`}>Link to Created Quiz</a>;
 
@@ -71,23 +72,30 @@ const NewQuiz = (props) => {
 
   return (
     <>
-      <h2>New Quiz Form</h2>
       <form>
-        <div>
-          <label htmlFor="title">Quiz Title</label>
-          <input type="input" id="title" name="title" onChange={formChangeHandler} />
-        </div>
-        
-        <QuestionsForm questions={quiz.questions} handler={formChangeHandler} />
+        <FormControl margin="normal" fullWidth={true}>
+          <TextField
+            type="input"
+            id="title"
+            name="title"
+            onChange={formChangeHandler}
+            label="Quiz Title"
+            helperText="Enter a title (Mandatory)"
+          />
 
-        <button
-          type="button"
-          onClick={formChangeHandler}
-          name="add"
-        >Add Another Question</button>
-        
-        <button type="submit" onClick={submitHandler} >Submit Quiz</button>
-        
+          <QuestionsForm
+            questions={quiz.questions}
+            handler={formChangeHandler}
+          />
+
+          <Button component="button" type="button" onClick={formChangeHandler} name="add">
+            Add Question
+          </Button>
+
+          <Button component="button" type="submit" onClick={submitHandler}>
+            Submit Quiz
+          </Button>
+        </FormControl>
       </form>
       {quizSubmitted.status && <ShareableLink slug={quizSubmitted.link} />}
     </>
