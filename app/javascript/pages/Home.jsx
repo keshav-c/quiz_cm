@@ -18,7 +18,7 @@ const Home = (props) => {
   const btnClickHandler = () => {
     setShowForm((oldState) => !oldState);
   };
-  const showFormBtnPrompt = showForm ? "Hide Quiz Form" : "Create New Quiz";
+  const showFormBtnPrompt = showForm ? "Cancel" : "Create New Quiz";
 
   return (
     <>
