@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 import FormInput from "./FormInput";
+import { Button, FormControl } from "@mui/material";
 
 // url, prompt, loggedIn, onSuccess
 const AuthForm = (props) => {
@@ -47,19 +48,22 @@ const AuthForm = (props) => {
   return (
     <form onSubmit={submitHandler}>
       {props.loggedIn && <Redirect to="/" />}
-      <FormInput
-        field="email"
-        enteredValue={enteredEmail}
-        changeHandler={emailChangeHandler}
-      />
-      <FormInput
-        field="password"
-        enteredValue={enteredPass}
-        changeHandler={passChangeHandler}
-      />
-      <div>
-        <button type="submit">{props.prompt}</button>
-      </div>
+      <FormControl margin="normal" fullWidth={true}>
+        <FormInput
+          field="email"
+          helperText="Enter a proper email"
+          enteredValue={enteredEmail}
+          changeHandler={emailChangeHandler}
+        />
+        <br/>
+        <FormInput
+          field="password"
+          helperText="Enter a secure password"
+          enteredValue={enteredPass}
+          changeHandler={passChangeHandler}
+        />
+        <Button component="button" type="submit">{props.prompt}</Button>
+      </FormControl>
     </form>
   );
 };

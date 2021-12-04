@@ -25,7 +25,7 @@ const App = () => {
           authToken={token}
           onRxUserData={updateUserState}
         />
-        <Card sx={{ margin: '2em', padding: '2em', elevation: '4' }}>
+        <Card sx={{ margin: '2em', padding: '2em' }}>
           <Switch>
             <Route exact path="/">
               <Home loggedIn={loggedIn} authToken={token} />
