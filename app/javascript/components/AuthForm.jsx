@@ -31,18 +31,18 @@ const AuthForm = (props) => {
       },
       body: body,
     });
-    console.log(response);
-    const data = await response.json();
-    if (response.ok) {
+    response = await response.json();
+    if (response.errors) {
+      console.log("something went wrong");
+      response.errors.forEach((e) => console.log(e));
+    } else {
       console.log("it worked");
-      console.log(data);
+      const { data } = response;
       setEnteredEmail("");
       setEnteredPass("");
       props.onSuccess(data.token, true);
-    } else {
-      console.log("something went wrong");
-      data.message.forEach((msg) => console.log(msg));
     }
+    console.log(response);
   };
 
   return (

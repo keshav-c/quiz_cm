@@ -4,11 +4,13 @@ class UsersController < ApplicationController
       user = User.new(user_params)
       user.save!
     rescue ActiveRecord::RecordInvalid
-      render json: { message: user.errors.full_messages }, status: 400
+      render json: { data: nil, errors: user.errors.full_messages }, status: 400
     rescue ActiveRecord::ActiveRecordError
-      render json: { message: ['Something went wrong'] }, status: 500
+      render json: { data: nil, errors: ['Something went wrong'] }, status: 500
     else
-      payload = login(user)
+      login_info = login(user)
+      payload = { data: login_info, errors: nil }
+      puts payload
       render json: payload, status: 200
     end
   end
