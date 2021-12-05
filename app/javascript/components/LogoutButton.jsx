@@ -12,15 +12,11 @@ const Logout = (props) => {
       },
       body: JSON.stringify({ auth_token: props.authToken }),
     });
-    console.log(response);
     const data = await response.json();
     if (response.ok) {
-      console.log("Logout success!");
-      console.log(data);
       props.onLogoutSuccess("", false);      
     } else {
-      console.log("Logout failure!");
-      data.message.forEach((msg) => console.log(msg));
+      data.errors.forEach((msg) => console.log(msg));
     }
   };
 

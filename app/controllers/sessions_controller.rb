@@ -18,7 +18,7 @@ class SessionsController < ApplicationController
       render json: { data: nil, errors: ['Invalid session'] }, status: 400
     else
       session.destroy
-      render json: { data: ['Logout success'] }, status: 200
+      render json: { data: ['Logout success'], errors: nil }, status: 200
     end
   end
 
