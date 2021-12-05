@@ -37,13 +37,11 @@ const AuthForm = (props) => {
     if (response.errors) {
       setErrorInfo({ error: true, messages: response.errors });
     } else {
-      console.log("it worked");
       const { data } = response;
       setEnteredEmail("");
       setEnteredPass("");
       props.onSuccess(data.token, true);
     }
-    console.log(response);
   };
 
   return (
