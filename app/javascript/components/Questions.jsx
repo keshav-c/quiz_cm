@@ -38,7 +38,6 @@ const Questions = (props) => {
     const qId = name.split('-')[1];
     const value = event.target.value;
     props.handler(qId, value);
-    console.log(props.answers);
   };
 
 

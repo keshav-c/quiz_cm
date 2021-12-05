@@ -4,15 +4,15 @@ class Quiz < ApplicationRecord
   belongs_to :user
   has_many :questions, dependent: :destroy
 
-  def score(sub_data)
+  def score(user_answers)
     score = 0
     total = 0
-    questions.each do |q|
-      match_q = sub_data.find { |sub_q| sub_q[:id] == q[:id] }
-      if match_q[:answer] == q[:answer]
-        score += q[:score]
+    user_answers.each do |uans|
+      question = questions.find { |q| q.id == uans[:id].to_i }
+      if question.answer == uans[:answer]
+        score += question.score
       end
-      total += q[:score]
+      total += question.score
     end
     return { score: score, total: total }
   end

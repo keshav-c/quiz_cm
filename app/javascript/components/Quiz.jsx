@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Questions from "./Questions";
 import Score from "./Score";
 import { Button, FormControl, Typography } from "@mui/material";
+import { ConstructionOutlined } from "@mui/icons-material";
 
 // expect data: {title, questions}, slug
 const Quiz = (props) => {
@@ -13,7 +14,6 @@ const Quiz = (props) => {
       answers[qId] = newAnswer;
       return answers;
     });
-    console.log(answers);
   };
   
   const formSubmitHandler = async (event) => {
