@@ -56,14 +56,11 @@ const NewQuiz = (props) => {
     });
     const data = await response.json();
     if (response.ok) {
-      console.log("it worked");
-      console.log(data);
       setQuizSubmitted({
         status: true,
         link: `/quiz/${data.slug}`
       });
     } else {
-      console.log("something went wrong");
       data.message.forEach((msg) => console.log(msg));
     }
   }
