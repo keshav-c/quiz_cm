@@ -1,31 +1,30 @@
 import React, { useState } from "react";
 import Questions from "./Questions";
 import Score from "./Score";
+import { Button, FormControl, Typography } from "@mui/material";
 
+// expect data: {title, questions}, slug
 const Quiz = (props) => {
   const [score, setScore] = useState(null);
-  const title = props.data.title;
-  let questions = props.data.questions;
-  questions = questions.map((q) => ({...q, answer: ""}));
+  const [answers, setAnswers] = useState({});
 
-  const solutions = questions.map((q) => ({id: q.id, answer:q.answer}));
-  const [quiz, setQuiz] = useState(solutions);
-
-  const formChangeHandler = (event) => {
-    const index = event.target.name.split("-")[1];
-    setQuiz((solutions) => {
-      solutions[index]["answer"] = event.target.value;
-      return solutions;
+  const formChangeHandler = (qId, newAnswer) => {
+    setAnswers((answers) => {
+      answers[qId] = newAnswer;
+      return answers;
     });
+    console.log(answers);
   };
   
   const formSubmitHandler = async (event) => {
     event.preventDefault();
 
+    const quiz = [];
+    for(let id in answers) {
+      quiz.push({ id: id, answer: answers[id] });
+    }
     const payload = {quiz, token: props.slug};
-    const csrf_token = document.querySelector(
-      'meta[name="csrf-token"]'
-    ).content;
+    const csrf_token = document.querySelector('meta[name="csrf-token"]').content;
 
     const response = await fetch(`/quiz/${props.slug}/evaluate`, {
       method: "POST",
@@ -44,10 +43,22 @@ const Quiz = (props) => {
 
   return (
     <>
-      <h2>{title}</h2>
+      <Typography align="center" variant="h3">{props.data.title}</Typography>
       <form>
-        <Questions questions={questions} handler={formChangeHandler} />
-        <button type="submit" onClick={formSubmitHandler}>Submit Quiz</button>
+        <FormControl margin="normal" fullWidth={true}>
+          <Questions
+            questions={props.data.questions}
+            answers={answers}
+            handler={formChangeHandler}
+          />
+          <Button
+            component="button"
+            type="submit"
+            onClick={formSubmitHandler}
+          >
+            Get Results
+          </Button>
+        </FormControl>
       </form>
       {!!score && <Score results={(score)} /> }
     </>

@@ -25,7 +25,6 @@ const QuizPage = () => {
 
   return (
     <>
-      <h1>The Quiz Page</h1>
       {!quizData && <p>Loading...</p>}
       {!!quizData && <Quiz data={quizData} slug={slug} />}
     </>
