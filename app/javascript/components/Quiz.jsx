@@ -7,6 +7,7 @@ import { Button, FormControl, Typography } from "@mui/material";
 const Quiz = (props) => {
   const [score, setScore] = useState(null);
   const [answers, setAnswers] = useState({});
+  const [showResults, setShowResults] = useState(false);
 
   const formChangeHandler = (qId, newAnswer) => {
     setAnswers((answers) => {
@@ -36,7 +37,13 @@ const Quiz = (props) => {
     if(response.ok) {
       const rxData = await response.json();
       setScore(rxData);
+      setShowResults(true);
     }
+  };
+
+  const resultsCloseHandler = () => {
+    setShowResults(false);
+    setScore(null);
   };
 
 
@@ -59,7 +66,13 @@ const Quiz = (props) => {
           </Button>
         </FormControl>
       </form>
-      {!!score && <Score results={(score)} /> }
+      {!!score && 
+        <Score
+          results={(score)}
+          open={showResults}
+          closeHandler={resultsCloseHandler}
+        />
+      }
     </>
   );
 };
