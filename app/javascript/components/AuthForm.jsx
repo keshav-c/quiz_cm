@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 import FormInput from "./FormInput";
+import Errors from "./Errors";
 import { Button, FormControl } from "@mui/material";
 
 // url, prompt, loggedIn, onSuccess
 const AuthForm = (props) => {
   const [enteredEmail, setEnteredEmail] = useState("");
   const [enteredPass, setEnteredPass] = useState("");
+  const [errorInfo, setErrorInfo] = useState({ error: false, messages: [] });
 
   const emailChangeHandler = (event) => {
     setEnteredEmail(event.target.value);
@@ -33,8 +35,7 @@ const AuthForm = (props) => {
     });
     response = await response.json();
     if (response.errors) {
-      console.log("something went wrong");
-      response.errors.forEach((e) => console.log(e));
+      setErrorInfo({ error: true, messages: response.errors });
     } else {
       console.log("it worked");
       const { data } = response;
@@ -62,6 +63,7 @@ const AuthForm = (props) => {
           enteredValue={enteredPass}
           changeHandler={passChangeHandler}
         />
+        {errorInfo.error && <Errors errors={errorInfo.messages} />}
         <Button component="button" type="submit">{props.prompt}</Button>
       </FormControl>
     </form>
