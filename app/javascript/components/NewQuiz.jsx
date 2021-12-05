@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import QuestionsForm from "./QuestionsForm";
+import ShareableLink from "./ShareableLink";
 import { Button, FormControl, TextField } from "@mui/material";
-
-const ShareableLink = (props) => <a href={`/quiz/${props.slug}`}>Link to Created Quiz</a>;
 
 const NewQuiz = (props) => {
   const [quiz, setQuiz] = useState({
@@ -55,19 +54,25 @@ const NewQuiz = (props) => {
       },
       body: JSON.stringify({token, quiz})
     });
-    console.log(response);
     const data = await response.json();
     if (response.ok) {
       console.log("it worked");
       console.log(data);
       setQuizSubmitted({
         status: true,
-        link: `${data.slug}`
+        link: `/quiz/${data.slug}`
       });
     } else {
       console.log("something went wrong");
       data.message.forEach((msg) => console.log(msg));
     }
+  }
+
+  const resultsCloseHandler = () => {
+    setQuizSubmitted({
+      status: false,
+      link: ""
+    });
   }
 
   return (
@@ -97,7 +102,13 @@ const NewQuiz = (props) => {
           </Button>
         </FormControl>
       </form>
-      {quizSubmitted.status && <ShareableLink slug={quizSubmitted.link} />}
+      {quizSubmitted.status && 
+        <ShareableLink
+          link={quizSubmitted.link}
+          open={quizSubmitted.status}
+          closeHandler={resultsCloseHandler}
+        />
+      }
     </>
   );
 };
