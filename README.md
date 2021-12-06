@@ -38,7 +38,7 @@ When all of the above user stories are completed, deploy the app to Heroku or an
 ## Additional Goals:
 
 - [x] Using React for UI
-- [ ] UI styled using mui or other framework
+- [x] UI styled using mui or other framework
 - [ ] App is dockerised
 - [ ] Good test coverage (Rspec)
 - [ ] Github actions configured for CI/CD
