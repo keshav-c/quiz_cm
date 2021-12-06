@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
+import { useCookies } from "react-cookie";
 import AppHeader from "./Header";
 import Home from "../pages/Home";
 import Signup from "../pages/Signup";
@@ -11,8 +12,23 @@ let token = "";
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
+  const [cookies, setCookie, removeCookie] = useCookies(['token']);
+
+  useEffect(() => {
+    if(cookies['token']) {
+      setLoggedIn(true);
+      token = cookies['token'];
+    }
+  });
   
   const updateUserState = (newToken, newLoginState) => {
+    if(newLoginState) { // logged in
+      let expiry = new Date();
+      expiry.setTime(expiry.getTime() + 1000 * 60 * 30);
+      setCookie("token", token, { path: "/", expires: expiry });
+    } else { // logged out
+      removeCookie('token');
+    }
     token = newToken;
     setLoggedIn(newLoginState);
   }

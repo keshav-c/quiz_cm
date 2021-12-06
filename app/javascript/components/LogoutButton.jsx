@@ -16,11 +16,10 @@ const Logout = (props) => {
     if (response.ok) {
       props.onLogoutSuccess("", false);      
     } else {
-      data.errors.forEach((msg) => console.log(msg));
+      // Handle logout errors
     }
   };
 
-  // variant="text" color="danger" 
   return (
     <Button
       component="button"
