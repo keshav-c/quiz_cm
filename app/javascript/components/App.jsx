@@ -16,22 +16,22 @@ const App = () => {
 
   useEffect(() => {
     if(cookies['token']) {
-      setLoggedIn(true);
       token = cookies['token'];
+      setLoggedIn(true);
     }
   });
-  
+
   const updateUserState = (newToken, newLoginState) => {
     if(newLoginState) { // logged in
       let expiry = new Date();
       expiry.setTime(expiry.getTime() + 1000 * 60 * 30);
-      setCookie("token", token, { path: "/", expires: expiry });
+      setCookie("token", newToken, { path: "/", expires: expiry });
     } else { // logged out
       removeCookie('token');
     }
     token = newToken;
     setLoggedIn(newLoginState);
-  }
+  };
 
   return (
     <Container maxWidth="md">
