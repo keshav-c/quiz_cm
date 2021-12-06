@@ -1,12 +1,6 @@
 import React from "react";
-import AuthForm from "../components/AuthForm";
+import SignupForm from "../components/SignupForm";
 
-const Signup = (props) => 
-  <AuthForm
-    url="/users"
-    prompt="Register"
-    loggedIn={props.loggedIn}
-    onSuccess={props.onRxUserData}
-  />;
+const Signup = (props) => <SignupForm loggedIn={props.loggedIn} />;
 
 export default Signup;

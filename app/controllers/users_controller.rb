@@ -8,10 +8,7 @@ class UsersController < ApplicationController
     rescue ActiveRecord::ActiveRecordError
       render json: { data: nil, errors: ['Something went wrong'] }, status: 500
     else
-      login_info = login(user)
-      payload = { data: login_info, errors: nil }
-      puts payload
-      render json: payload, status: 200
+      render json: { data: { user_created: true }, errors: nil }, status: 200
     end
   end
 

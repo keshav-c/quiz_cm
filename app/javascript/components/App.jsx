@@ -19,13 +19,13 @@ const App = () => {
 
   return (
     <Container maxWidth="md">
-      <Paper sx={{ minHeight: '100vh', padding: '1em' }}>
+      <Paper sx={{ minHeight: "100vh", padding: "1em" }}>
         <AppHeader
           loggedIn={loggedIn}
           authToken={token}
           onRxUserData={updateUserState}
         />
-        <Card sx={{ margin: '2em', padding: '1em' }}>
+        <Card sx={{ margin: "2em", padding: "1em" }}>
           <Switch>
             <Route exact path="/">
               <Home loggedIn={loggedIn} authToken={token} />
@@ -33,9 +33,17 @@ const App = () => {
             <Route exact path="/signup">
               <Signup loggedIn={loggedIn} onRxUserData={updateUserState} />
             </Route>
-            <Route exact path="/signin">
-              <Signin loggedIn={loggedIn} onRxUserData={updateUserState} />
-            </Route>
+            <Route
+              exact
+              path="/signin"
+              render={(props) => (
+                <Signin
+                  {...props}
+                  loggedIn={loggedIn}
+                  onRxUserData={updateUserState}
+                />
+              )}
+            />
             <Route exact path="/quiz/:quizId">
               <QuizPage />
             </Route>

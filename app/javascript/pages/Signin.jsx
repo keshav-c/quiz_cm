@@ -1,13 +1,16 @@
 import React from "react";
-import AuthForm from "../components/AuthForm";
+import SigninForm from "../components/SigninForm";
 
-const Signin = (props) => (
-  <AuthForm
-    url="/login"
-    prompt="Login"
-    loggedIn={props.loggedIn}
-    onSuccess={props.onRxUserData}
-  />
-);
+const Signin = (props) => {
+  const justLoggedIn = props.location.justLoggedIn;
+
+  return (
+    <SigninForm
+      justLoggedIn={!!justLoggedIn}
+      loggedIn={props.loggedIn}
+      onSuccess={props.onRxUserData}
+    />
+  );
+};
 
 export default Signin;

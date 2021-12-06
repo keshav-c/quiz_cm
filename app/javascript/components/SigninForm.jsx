@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 import FormInput from "./FormInput";
 import Errors from "./Errors";
-import { Button, FormControl } from "@mui/material";
+import { Alert, Button, FormControl } from "@mui/material";
 
 // url, prompt, loggedIn, onSuccess
-const AuthForm = (props) => {
+const SigninForm = (props) => {
   const [enteredEmail, setEnteredEmail] = useState("");
   const [enteredPass, setEnteredPass] = useState("");
   const [errorInfo, setErrorInfo] = useState({ error: false, messages: [] });
@@ -25,7 +25,7 @@ const AuthForm = (props) => {
       email: enteredEmail,
       password: enteredPass,
     });
-    let response = await fetch(props.url, {
+    let response = await fetch("/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -47,6 +47,9 @@ const AuthForm = (props) => {
   return (
     <form onSubmit={submitHandler}>
       {props.loggedIn && <Redirect to="/" />}
+      {props.justLoggedIn &&
+        <Alert severity="success">Signup Successful!</Alert>
+      }
       <FormControl margin="normal" fullWidth={true}>
         <FormInput
           field="email"
@@ -54,7 +57,7 @@ const AuthForm = (props) => {
           enteredValue={enteredEmail}
           changeHandler={emailChangeHandler}
         />
-        <br/>
+        <br />
         <FormInput
           field="password"
           helperText="Enter a secure password"
@@ -62,10 +65,12 @@ const AuthForm = (props) => {
           changeHandler={passChangeHandler}
         />
         {errorInfo.error && <Errors errors={errorInfo.messages} />}
-        <Button component="button" type="submit">{props.prompt}</Button>
+        <Button component="button" type="submit">
+          Login
+        </Button>
       </FormControl>
     </form>
   );
 };
 
-export default AuthForm;
+export default SigninForm;
